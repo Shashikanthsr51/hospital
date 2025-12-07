@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MediCare Hospital - Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #2b7cff;
+      --primary-dark: #1e57b5;
+      --secondary: #16c79a;
+      --bg-light: #f4f7fb;
+      --text-dark: #1f2933;
+      --text-muted: #6b7280;
+      --white: #ffffff;
+      --danger: #ef4444;
+      --shadow-soft: 0 15px 30px rgba(15, 23, 42, 0.1);
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 10px rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.2s ease-in-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-dark);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-btn {
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      background: var(--primary-dark);
+      box-shadow: 0 18px 30px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1100px;
+      margin: 1.5rem auto 2rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--secondary);
+    }
+
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(120deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn {
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: var(--primary-dark);
+      box-shadow: 0 18px 30px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-outline {
+      border: 1px solid #cbd5e1;
+      background: var(--white);
+      color: var(--text-dark);
+    }
+
+    .btn-outline:hover {
+      background: #e5edff;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .hero-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.3rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at center, #dbeafe, transparent 70%);
+      opacity: 0.8;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .hero-card-title {
+      font-weight: 600;
+    }
+
+    .status-pill {
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 500;
+    }
+
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-stat {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 0.6rem;
+    }
+
+    .hero-stat span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stat strong {
+      font-size: 1rem;
+    }
+
+    .hero-availability {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 0.6rem;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    /* Section common */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.8rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .stat-pill {
+      display: inline-block;
+      margin-top: 0.25rem;
+      font-size: 0.7rem;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: #0e7490;
+    }
+
+    /* Services */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-tag {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .card ul {
+      list-style: disc;
+      padding-left: 1.1rem;
+      margin-top: 0.3rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* Doctors */
+    .doctors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .doctor-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      font-size: 0.83rem;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 0.4rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .doctor-name {
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .doctor-speciality {
+      font-size: 0.75rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .doctor-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-small {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Appointment / Patient Management */
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .form-group {
+      margin-bottom: 0.7rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 10px;
+      border: 1px solid #d4d4d8;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 36px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+    }
+
+    .form-hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .table-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-soft);
+      overflow-x: auto;
+      font-size: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.45rem 0.4rem;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+    }
+
+    .status-pending {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-confirmed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-cancelled {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .footer-inner a {
+      color: #93c5fd;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cards-grid,
+      .doctors-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cards-grid,
+      .doctors-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+
+      .nav-container {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">H+</div>
+        <span>MediCare HMS</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Dashboard</a>
+        <a href="#services">Services</a>
+        <a href="#doctors">Doctors</a>
+        <a href="#appointments">Appointments</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav-btn" onclick="scrollToSection('appointments')">
+        + Book Appointment
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO / DASHBOARD -->
+  <main id="home" class="hero">
+    <div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Smart Hospital Management Dashboard
+      </div>
+      <h1>
+        Manage your <span class="hero-highlight">Hospital</span> with
+        ease & confidence.
+      </h1>
+      <p>
+        A clean, simple Hospital Management System interface for handling
+        patients, appointments, doctors, and departments in one place.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="scrollToSection('appointments')">
+          Book Appointment
+        </button>
+        <button class="btn btn-outline" onclick="scrollToSection('services')">
+          View Hospital Services
+        </button>
+      </div>
+
+      <div class="hero-meta">
+        <div>
+          <strong>24x7 Emergency</strong>
+          Response within 5 minutes.
+        </div>
+        <div>
+          <strong>Digital Records</strong>
+          Keep all patient data safe & secure.
+        </div>
+        <div>
+          <strong>Smart Scheduling</strong>
+          No more long waiting queues.
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-card">
+      <div class="hero-card-header">
+        <div>
+          <div class="hero-card-title">Today’s Snapshot</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">
+            Real-time hospital overview
+          </div>
+        </div>
+        <span class="status-pill">Live</span>
+      </div>
+
+      <div class="hero-card-grid">
+        <div class="hero-stat">
+          <span>Patients Inside</span>
+          <strong id="stat-patients">42</strong>
+        </div>
+        <div class="hero-stat">
+          <span>Doctors On Duty</span>
+          <strong id="stat-doctors">11</strong>
+        </div>
+        <div class="hero-stat">
+          <span>Surgeries Today</span>
+          <strong>5</strong>
+        </div>
+        <div class="hero-stat">
+          <span>Empty Beds</span>
+          <strong id="stat-beds">18</strong>
+        </div>
+      </div>
+
+      <div class="hero-availability">
+        <div>
+          <strong style="font-size: 0.85rem;">OPD Slots</strong>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">
+            Next slot in 20 mins
+          </div>
+        </div>
+        <button class="btn btn-primary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;"
+          onclick="scrollToSection('appointments')">
+          Quick Book
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- STATS / OVERVIEW -->
+  <section>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Patients (This Week)</div>
+        <div class="stat-value">278</div>
+        <div class="stat-pill">+12% vs last week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Average Waiting Time</div>
+        <div class="stat-value">15 min</div>
+        <div class="stat-pill">Optimized using HMS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bed Occupancy</div>
+        <div class="stat-value">76%</div>
+        <div class="stat-pill">ICU: 90% | Ward: 68%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Patient Feedback</div>
+        <div class="stat-value">4.6/5</div>
+        <div class="stat-pill">Based on 1,204 reviews</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Hospital Services</h2>
+        <p class="section-subtitle">
+          Key modules managed by this Hospital Management System.
+        </p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card">
+        <span class="card-tag">Patients</span>
+        <h3>Patient Registration & Records</h3>
+        <p>
+          Store complete patient details including demographics, medical
+          history, visits, and billing information.
+        </p>
+        <ul>
+          <li>Online patient registration</li>
+          <li>Digital medical records</li>
+          <li>Quick search & filters</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Appointments</span>
+        <h3>Appointment & Scheduling</h3>
+        <p>
+          Smart calendar for booking, rescheduling, and tracking appointments
+          for doctors and departments.
+        </p>
+        <ul>
+          <li>OPD/Tele-consultation slots</li>
+          <li>Doctor-wise schedule</li>
+          <li>Auto reminder alerts</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Emergency</span>
+        <h3>Emergency & ICU Management</h3>
+        <p>
+          Monitor critical patients, bed availability, and emergency response
+          workflows.
+        </p>
+        <ul>
+          <li>ICU bed tracking</li>
+          <li>Ambulance management</li>
+          <li>Critical alerts</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Billing</span>
+        <h3>Billing & Payments</h3>
+        <p>
+          Generate invoices, handle insurance, and track paid/pending patient
+          bills.
+        </p>
+        <ul>
+          <li>OPD/IPD billing</li>
+          <li>Insurance claims</li>
+          <li>Payment history</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Lab</span>
+        <h3>Laboratory & Reports</h3>
+        <p>
+          Manage tests, lab reports, and share results with doctors and
+          patients.
+        </p>
+        <ul>
+          <li>Test requests</li>
+          <li>Digital PDF reports</li>
+          <li>Doctor review</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Pharmacy</span>
+        <h3>Pharmacy & Inventory</h3>
+        <p>
+          Track medicines stock, expiry dates, and sales to inpatients and
+          outpatients.
+        </p>
+        <ul>
+          <li>Stock alerts</li>
+          <li>Supplier records</li>
+          <li>Prescription-based sale</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section id="doctors">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Our Doctors</h2>
+        <p class="section-subtitle">
+          Assign appointments to available specialists quickly.
+        </p>
+      </div>
+    </div>
+
+    <div class="doctors-grid">
+      <div class="doctor-card">
+        <div class="avatar">AK</div>
+        <div class="doctor-name">Dr. Ananya Kapoor</div>
+        <div class="doctor-speciality">Cardiologist</div>
+        <div class="badge-small">On Duty</div>
+        <div class="doctor-meta">
+          Experience: 10+ years<br />
+          OPD: Mon–Sat, 9 AM – 2 PM
+        </div>
+        <button class="btn btn-outline" style="font-size: 0.75rem;"
+          onclick="prefillDoctor('Dr. Ananya Kapoor')">
+          Book with Dr. Ananya
+        </button>
+      </div>
+
+      <div class="doctor-card">
+        <div class="avatar">RS</div>
+        <div class="doctor-name">Dr. Rahul Singh</div>
+        <div class="doctor-speciality">Orthopedic Surgeon</div>
+        <div class="badge-small" style="background:#fee2e2;color:#b91c1c;">In Surgery</div>
+        <div class="doctor-meta">
+          Experience: 8+ years<br />
+          OPD: Mon, Wed, Fri – 4 PM – 8 PM
+        </div>
+        <button class="btn btn-outline" style="font-size: 0.75rem;"
+          onclick="prefillDoctor('Dr. Rahul Singh')">
+          Book with Dr. Rahul
+        </button>
+      </div>
+
+      <div class="doctor-card">
+        <div class="avatar">SP</div>
+        <div class="doctor-name">Dr. Shruti Patel</div>
+        <div class="doctor-speciality">Pediatrician</div>
+        <div class="badge-small">On Duty</div>
+        <div class="doctor-meta">
+          Experience: 6+ years<br />
+          OPD: Tue–Sun, 10 AM – 1 PM
+        </div>
+        <button class="btn btn-outline" style="font-size: 0.75rem;"
+          onclick="prefillDoctor('Dr. Shruti Patel')">
+          Book with Dr. Shruti
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPOINTMENT & PATIENT MANAGEMENT -->
+  <section id="appointments">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Appointments & Patients</h2>
+        <p class="section-subtitle">
+          Create new appointments and view the patient queue.
+        </p>
+      </div>
+    </div>
+
+    <div class="two-column">
+      <!-- LEFT: Appointment Form -->
+      <div class="form-card">
+        <h3 style="margin-bottom: 0.6rem; font-size: 1rem;">New Appointment</h3>
+
+        <form id="appointmentForm">
+          <div class="form-group">
+            <label for="patientName">Patient Name</label>
+            <input type="text" id="patientName" placeholder="Enter full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="patientAge">Age</label>
+            <input type="number" id="patientAge" min="0" max="120" placeholder="e.g. 32" required />
+          </div>
+
+          <div class="form-group">
+            <label for="patientGender">Gender</label>
+            <select id="patientGender" required>
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" required>
+              <option value="">Choose department</option>
+              <option>Cardiology</option>
+              <option>Orthopedics</option>
+              <option>Pediatrics</option>
+              <option>General Medicine</option>
+              <option>Gynecology</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="doctor">Doctor</label>
+            <input type="text" id="doctor" placeholder="e.g. Dr. Ananya Kapoor" required />
+            <div class="form-hint">
+              Tip: Click “Book with Doctor” from above to auto-fill.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Appointment Date</label>
+            <input type="date" id="date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="time">Appointment Time</label>
+            <input type="time" id="time" required />
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Problem / Notes</label>
+            <textarea id="notes" rows="3" placeholder="Short description of symptoms"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.3rem;">
+            Save Appointment
+          </button>
+
+          <div id="formMessage" class="form-hint" style="margin-top: 0.4rem;"></div>
+        </form>
+      </div>
+
+      <!-- RIGHT: Appointment Table -->
+      <div class="table-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+          <h3 style="font-size: 1rem;">Today’s Appointments</h3>
+          <div style="font-size:0.75rem; color:var(--text-muted);">
+            Status: <span class="status-badge status-pending">Pending</span> /
+            <span class="status-badge status-confirmed">Confirmed</span>
+          </div>
+        </div>
+
+        <table id="appointmentsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Patient</th>
+              <th>Dept.</th>
+              <th>Doctor</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Initial sample rows -->
+            <tr>
+              <td>1</td>
+              <td>Rohan Verma</td>
+              <td>Cardiology</td>
+              <td>Dr. Ananya Kapoor</td>
+              <td>10:30</td>
+              <td><span class="status-badge status-confirmed">Confirmed</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Meera Shah</td>
+              <td>Pediatrics</td>
+              <td>Dr. Shruti Patel</td>
+              <td>11:15</td>
+              <td><span class="status-badge status-pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Arjun Singh</td>
+              <td>Orthopedics</td>
+              <td>Dr. Rahul Singh</td>
+              <td>12:00</td>
+              <td><span class="status-badge status-pending">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <section id="contact">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Contact & Location</h2>
+        <p class="section-subtitle">
+          Use this information section as part of your hospital management UI.
+        </p>
+      </div>
+    </div>
+    <div class="cards-grid" style="grid-template-columns: repeat(2, minmax(0,1fr));">
+      <div class="card">
+        <h3>Hospital Address</h3>
+        <p>
+          MediCare Multi-Speciality Hospital<br />
+          21, Health Care Avenue,<br />
+          City Center, Your City – 000000
+        </p>
+        <p style="margin-top:0.5rem;">
+          Phone: +91-98765-43210<br />
+          Email: info@medicarehms.com
+        </p>
+      </div>
+      <div class="card">
+        <h3>Working Hours</h3>
+        <p>
+          OPD: Mon – Sat, 9:00 AM – 8:00 PM<br />
+          Emergency: 24x7
+        </p>
+        <p style="margin-top:0.5rem;">
+          You can connect this UI to a backend (Node/Java/PHP, etc.) for
+          real-time data, login, authentication, role-based access, and
+          database integration.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        © <span id="year"></span> MediCare Hospital Management System. All rights reserved.
+      </div>
+      <div>
+        Designed as a demo HMS UI • You can extend this with
+        <a href="#home">admin, doctor, and patient panels.</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // Prefill doctor name from doctor cards
+    function prefillDoctor(name) {
+      const input = document.getElementById("doctor");
+      if (input) {
+        input.value = name;
+        input.focus();
+      }
+      scrollToSection("appointments");
+    }
+
+    // Handle appointment form submission
+    const appointmentForm = document.getElementById("appointmentForm");
+    const appointmentsTable = document.getElementById("appointmentsTable").querySelector("tbody");
+    const formMessage = document.getElementById("formMessage");
+
+    appointmentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("patientName").value.trim();
+      const age = document.getElementById("patientAge").value.trim();
+      const gender = document.getElementById("patientGender").value;
+      const department = document.getElementById("department").value;
+      const doctor = document.getElementById("doctor").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      if (!name || !age || !gender || !department || !doctor || !date || !time) {
+        showFormMessage("Please fill all required fields.", true);
+        return;
+      }
+
+      // Create new row
+      const rowCount = appointmentsTable.rows.length + 1;
+      const newRow = appointmentsTable.insertRow();
+      newRow.innerHTML = `
+        <td>${rowCount}</td>
+        <td>${name}</td>
+        <td>${department}</td>
+        <td>${doctor}</td>
+        <td>${time}</td>
+        <td><span class="status-badge status-pending">Pending</span></td>
+      `;
+
+      // Reset form
+      appointmentForm.reset();
+      showFormMessage("Appointment saved (demo only, not stored in database).", false);
+    });
+
+    function showFormMessage(message, isError) {
+      if (!formMessage) return;
+      formMessage.textContent = message;
+      formMessage.style.color = isError ? "var(--danger)" : "var(--secondary)";
+    }
+  </script>
+</body>
+</html>
